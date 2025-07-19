@@ -46,8 +46,8 @@ pipeline {
             steps {
                 dir("${FLASK_APP_DIR}") {
                     sh '''
-                        sudo -n -u ubuntu /usr/local/bin/pm2 delete flask-app || true
-                        sudo -n -u ubuntu /usr/local/bin/pm2 start app.py --interpreter python3 --name flask-app --update-env
+                        /usr/local/bin/pm2 delete flask-app || true
+                        /usr/local/bin/pm2 start app.py --interpreter python3 --name flask-app --update-env
                     '''
                 }
             }
@@ -68,8 +68,8 @@ pipeline {
                         sh 'npm install --no-optional'
                     }
                     sh '''
-                        sudo -n -u ubuntu /usr/local/bin/pm2 delete express-app || true
-                        sudo -n -u ubuntu /usr/local/bin/pm2 start app.js --name express-app --update-env
+                        /usr/local/bin/pm2 delete express-app || true
+                        /usr/local/bin/pm2 start app.js --name express-app --update-env
                     '''
                 }
             }
@@ -78,7 +78,7 @@ pipeline {
         stage('Confirm PM2 Process List') {
             steps {
                 sh 'pm2 restart all --update-env || true'
-                sh 'sudo -n -u ubuntu pm2  list'
+                sh 'pm2  list'
             }
         }
     }
