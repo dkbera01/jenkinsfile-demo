@@ -77,7 +77,9 @@ pipeline {
 
         stage('Confirm PM2 Process List') {
             steps {
-                sh 'pm2 list'
+                sh '''
+                    pm2 restart all
+                '''
             }
         }
     }
