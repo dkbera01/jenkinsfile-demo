@@ -46,8 +46,8 @@ pipeline {
             steps {
                 dir("${FLASK_APP_DIR}") {
                     sh '''
-                        sudo -u ubuntu pm2 delete flask-app || true
-                        sudo -u ubuntu pm2 start app.py --interpreter python3 --name flask-app --update-env
+                        pm2 delete flask-app || true
+                        pm2 start app.py --interpreter python3 --name flask-app --update-env
                     '''
                 }
             }
@@ -68,8 +68,8 @@ pipeline {
                         sh 'npm install --no-optional'
                     }
                     sh '''
-                        sudo -u ubuntu pm2 delete express-app || true
-                        sudo -u ubuntu pm2 start app.js --name express-app --update-env
+                        pm2 delete express-app || true
+                        pm2 start app.js --name express-app --update-env
                     '''
                 }
             }
