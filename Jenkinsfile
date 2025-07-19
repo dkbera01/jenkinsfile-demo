@@ -1,8 +1,6 @@
 pipeline {
     agent any
-    tools {
-        git 'DefaultGit' // Name you configured in Jenkins
-    }
+
     environment {
         FLASK_APP_DIR = 'flask-app'
         EXPRESS_APP_DIR = 'express-app'
