@@ -1,7 +1,8 @@
 pipeline {
-    agent {
-        label 'any'
-        customWorkspace '/home/ubuntu'
+    agent any
+
+    options {
+        customWorkspace('/home/ubuntu/jenkins-workspace')
     }
 
     environment {
