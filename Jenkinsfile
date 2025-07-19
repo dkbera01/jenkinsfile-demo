@@ -13,15 +13,10 @@ pipeline {
     }
 
     stages {
-        // stage('Clean Custom Workspace') {
-        //     steps {
-        //         // sh 'sudo rm -rf /home/ubuntu/*'
-        //     }
-        // }
-
         stage('Clone Repository to Custom Path') {
             steps {
-                dir('/home/ubuntu') {
+                dir("${BASE_DIR}") {
+                    deleteDir() // Optional: Clean this folder before cloning
                     git branch: 'main', url: 'https://github.com/dkbera01/jenkinsfile-demo.git'
                 }
             }
