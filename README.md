@@ -28,15 +28,15 @@ flask-express-demo/
 
 2. **Run Flask App**:
    ```bash
-   cd flask-app
+   cd /var/lib/jenkins/workspace/jenkinsfile-demo/flask-app
    pip3 install -r requirements.txt
    pm2 start app.py --interpreter python3 --name flask-app
    ```
 
 3. **Run Express App**:
    ```bash
-   cd express-app
-   npm install
+   cd /var/lib/jenkins/workspace/jenkinsfile-demo/express-app
+   sudo npm install
    pm2 start app.js --name express-app
    ```
 
