@@ -19,28 +19,36 @@ flask-express-demo/
 
 ## 🚀 Setup on EC2 Instance
 
-1. **Install required packages**:
+1. **Setup Jenkins**
+   ```bash
+   sudo apt update
+   sudo apt install openjdk-17-jdk -y
+   sudo wget -O /etc/apt/keyrings/jenkins-keyring.asc \
+   https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+   echo "deb [signed-by=/etc/apt/keyrings/jenkins-keyring.asc]" \
+   https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
+   /etc/apt/sources.list.d/jenkins.list > /dev/null
+   sudo apt-get update
+   sudo apt-get install jenkins
+   sudo systemctl enable jenkins
+   sudo systemctl start jenkins
+   sudo systemctl status jenkins
+   ```
+   - Jenkins: `http://<EC2-IP>:8080/`
+
+   ```bash
+   sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+   ```
+
+2. **Install required packages**:
    ```bash
    sudo apt update
    sudo apt install -y python3 python3-pip nodejs npm git
+   sudo apt install python3.12-venv
    sudo npm install -g pm2
    ```
 
-2. **Run Flask App**:
-   ```bash
-   cd /var/lib/jenkins/workspace/jenkinsfile-demo/flask-app
-   pip3 install -r requirements.txt
-   pm2 start app.py --interpreter python3 --name flask-app
-   ```
-
-3. **Run Express App**:
-   ```bash
-   cd /var/lib/jenkins/workspace/jenkinsfile-demo/express-app
-   sudo npm install
-   pm2 start app.js --name express-app
-   ```
-
-4. **Access APIs**:
+3. **Access APIs**:
    - Flask: `http://<EC2-IP>:5000/api/hello`
    - Express: `http://<EC2-IP>:3000/api/hello`
 
