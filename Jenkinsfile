@@ -1,5 +1,8 @@
 pipeline {
-    agent any
+    agent {
+        label 'any'
+        customWorkspace '/home/ubuntu'
+    }
 
     environment {
         FLASK_APP_DIR = 'flask-app'
@@ -62,7 +65,7 @@ pipeline {
         }
 
         stage('Deploy Express App') {
-             steps {
+            steps {
                 dir("${EXPRESS_APP_DIR}") {
                     timeout(time: 1, unit: 'MINUTES') {
                         sh 'npm install --no-optional'
@@ -72,14 +75,6 @@ pipeline {
                         pm2 start app.js --name express-app
                     '''
                 }
-            }
-        }
-
-        stage('Confirm PM2 Process List') {
-            steps {
-                sh '''
-                    pm2 restart all
-                '''
             }
         }
     }
@@ -103,3 +98,4 @@ pipeline {
         }
     }
 }
+
