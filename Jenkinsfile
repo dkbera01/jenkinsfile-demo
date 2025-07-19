@@ -2,9 +2,8 @@ pipeline {
     agent any
 
     environment {
-        BASE_DIR = '/home/ubuntu/jenkinsfile-demo'
-        FLASK_APP_DIR = "${BASE_DIR}/flask-app"
-        EXPRESS_APP_DIR = "${BASE_DIR}/express-app"
+        FLASK_APP_DIR = 'flask-app'
+        EXPRESS_APP_DIR = 'express-app'
         FLASK_VENV_PATH = "${FLASK_APP_DIR}/venv"
     }
 
@@ -13,12 +12,20 @@ pipeline {
     }
 
     stages {
-        stage('Clone Repository to Custom Path') {
+        stage('Clean Workspace') {
             steps {
-                dir("${BASE_DIR}") {
-                    deleteDir() // Optional: Clean this folder before cloning
-                    git branch: 'main', url: 'https://github.com/dkbera01/jenkinsfile-demo.git'
-                }
+                deleteDir()
+            }
+        }
+
+        stage('Clone Repository') {
+            steps {
+                checkout([
+                    $class: 'GitSCM',
+                    branches: [[name: '*/main']],
+                    userRemoteConfigs: [[url: 'https://github.com/dkbera01/jenkinsfile-demo.git']],
+                    extensions: [[$class: 'WipeWorkspace']]
+                ])
             }
         }
 
@@ -55,7 +62,7 @@ pipeline {
         }
 
         stage('Deploy Express App') {
-            steps {
+             steps {
                 dir("${EXPRESS_APP_DIR}") {
                     timeout(time: 1, unit: 'MINUTES') {
                         sh 'npm install --no-optional'
@@ -65,6 +72,12 @@ pipeline {
                         pm2 start app.js --name express-app
                     '''
                 }
+            }
+        }
+
+        stage('Confirm PM2 Process List') {
+            steps {
+                sh 'pm2 list'
             }
         }
     }
