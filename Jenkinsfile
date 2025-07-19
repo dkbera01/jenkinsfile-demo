@@ -1,18 +1,24 @@
 pipeline {
     agent any
-
+    environment {
+        FLASK_APP_DIR = '/home/ubuntu/jenkinsfile-demo/flask-app'
+        VENV_PATH = "${FLASK_APP_DIR}/venv"
+    }
     stages {
         stage('Clone Repository') {
             steps {
-                git 'https://github.com/your-username/flask-express-demo.git'
+                git 'https://github.com/dkbera01/jenkinsfile-demo.git'
             }
         }
 
         stage('Install Flask Dependencies') {
             steps {
-                dir('flask-app') {
-                    sh 'pip3 install -r requirements.txt'
-                }
+                sh '''
+                    cd $FLASK_APP_DIR
+                    python3 -m venv venv
+                    source venv/bin/activate
+                    pip install -r requirements.txt
+                '''
             }
         }
 
