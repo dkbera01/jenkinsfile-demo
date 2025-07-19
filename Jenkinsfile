@@ -47,7 +47,7 @@ pipeline {
                 dir("${FLASK_APP_DIR}") {
                     sh '''
                         sudo -u ubuntu /usr/local/bin/pm2 delete flask-app || true
-                        sudo -u ubuntu /usr/local/bin/pm2 start app.py --interpreter python3 --name flask-app --update-env
+                        sudo -u ubuntu /usr/local/bin/pm2 start app.py --interpreter ./venv/bin/python --name flask-app --update-env
                     '''
                 }
             }
