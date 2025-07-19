@@ -47,7 +47,7 @@ pipeline {
                 dir("${FLASK_APP_DIR}") {
                     sh '''
                         pm2 delete flask-app || true
-                        pm2 start app.py --interpreter python3 --name flask-app
+                        pm2 start app.py --interpreter python3 --name flask-app --update-env
                     '''
                 }
             }
@@ -69,7 +69,7 @@ pipeline {
                     }
                     sh '''
                         pm2 delete express-app || true
-                        pm2 start app.js --name express-app
+                        pm2 start app.js --name express-app --update-env
                     '''
                 }
             }
@@ -78,6 +78,8 @@ pipeline {
         stage('Confirm PM2 Process List') {
             steps {
                 sh 'pm2 list'
+                sh 'which pm2'
+                sh 'whoami'
             }
         }
     }
