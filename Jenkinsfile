@@ -78,7 +78,6 @@ pipeline {
         stage('Confirm PM2 Process List') {
             steps {
                 sh 'pm2 restart all --update-env || true'
-                sh 'sudo -u jenkins pm2  list'
                 sh 'sudo -u ubuntu pm2  list'
                 sh 'which pm2'
                 sh 'whoami'
