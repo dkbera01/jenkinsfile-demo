@@ -15,7 +15,7 @@ pipeline {
     stages {
         stage('Clean Custom Workspace') {
             steps {
-                sh 'rm -rf /home/ubuntu/jenkins-workspace/*'
+                sh 'sudo rm -rf /home/ubuntu/jenkins-workspace/*'
             }
         }
 
