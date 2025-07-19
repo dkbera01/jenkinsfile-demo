@@ -1,10 +1,16 @@
 pipeline {
     agent any
-
+    tools {
+        git 'DefaultGit' // Name you configured in Jenkins
+    }
     environment {
         FLASK_APP_DIR = 'flask-app'
         EXPRESS_APP_DIR = 'express-app'
         FLASK_VENV_PATH = "${FLASK_APP_DIR}/venv"
+    }
+
+    triggers {
+        githubPush()
     }
 
     stages {
@@ -16,7 +22,12 @@ pipeline {
 
         stage('Clone Repository') {
             steps {
-                git branch: 'main', url: 'https://github.com/dkbera01/jenkinsfile-demo.git'
+                checkout([
+                    $class: 'GitSCM',
+                    branches: [[name: '*/main']],
+                    userRemoteConfigs: [[url: 'https://github.com/dkbera01/jenkinsfile-demo.git']],
+                    extensions: [[$class: 'WipeWorkspace']]
+                ])
             }
         }
 
