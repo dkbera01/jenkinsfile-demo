@@ -40,6 +40,15 @@ flask-express-demo/
    sudo cat /var/lib/jenkins/secrets/initialAdminPassword
    ```
 
+   ```bash
+   sudo visudo
+   ```
+   Add this line endof the file
+
+   ```bash
+   jenkins ALL=(ubuntu) NOPASSWD: /usr/local/bin/pm2
+   ```
+
 2. **Install required packages**:
    ```bash
    sudo apt update
