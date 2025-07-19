@@ -1,38 +1,52 @@
 pipeline {
     agent any
+
     environment {
-        FLASK_APP_DIR = '/home/ubuntu/jenkinsfile-demo/flask-app'
-        VENV_PATH = "${FLASK_APP_DIR}/venv"
+        FLASK_APP_DIR = 'flask-app'
+        EXPRESS_APP_DIR = 'express-app'
+        FLASK_VENV_PATH = "${FLASK_APP_DIR}/venv"
     }
+
     stages {
+        stage('Clean Workspace') {
+            steps {
+                deleteDir()
+            }
+        }
+
         stage('Clone Repository') {
             steps {
-                git 'https://github.com/dkbera01/jenkinsfile-demo.git'
+                git branch: 'main', url: 'https://github.com/dkbera01/jenkinsfile-demo.git'
             }
         }
 
         stage('Install Flask Dependencies') {
             steps {
-                sh '''
-                    cd $FLASK_APP_DIR
-                    python3 -m venv venv
-                    source venv/bin/activate
-                    pip install -r requirements.txt
-                '''
+                dir("${FLASK_APP_DIR}") {
+                    sh '''
+                        python3 -m venv venv
+                        source venv/bin/activate
+                        pip install --upgrade pip
+                        pip install -r requirements.txt
+                    '''
+                }
             }
         }
 
         stage('Deploy Flask App') {
             steps {
-                dir('flask-app') {
-                    sh 'pm2 restart flask-app || pm2 start app.py --interpreter python3 --name flask-app'
+                dir("${FLASK_APP_DIR}") {
+                    sh '''
+                        pm2 delete flask-app || true
+                        pm2 start app.py --interpreter python3 --name flask-app
+                    '''
                 }
             }
         }
 
         stage('Install Express Dependencies') {
             steps {
-                dir('express-app') {
+                dir("${EXPRESS_APP_DIR}") {
                     sh 'npm install'
                 }
             }
@@ -40,31 +54,38 @@ pipeline {
 
         stage('Deploy Express App') {
             steps {
-                dir('express-app') {
-                    sh 'pm2 restart express-app || pm2 start app.js --name express-app'
+                dir("${EXPRESS_APP_DIR}") {
+                    sh '''
+                        pm2 delete express-app || true
+                        pm2 start app.js --name express-app
+                    '''
                 }
             }
         }
+
+        stage('Confirm PM2 Process List') {
+            steps {
+                sh 'pm2 list'
+            }
+        }
     }
-}
-post {
+
+    post {
         always {
-            echo 'Cleaning up...'
+            echo 'Saving PM2 Process List'
             sh 'pm2 save'
         }
-        failure {
-            echo 'Build failed!'
-        }
         success {
-            echo 'Build succeeded!'
+            echo '✅ Build and deployment succeeded!'
+        }
+        failure {
+            echo '❌ Build failed. Check logs!'
         }
         unstable {
-            echo 'Build is unstable!'
-        }
-        changed {
-            echo 'Build status changed!'
+            echo '⚠️ Build is unstable!'
         }
         aborted {
-            echo 'Build was aborted!'
+            echo '⚠️ Build was aborted!'
         }
+    }
 }
