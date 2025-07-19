@@ -15,11 +15,6 @@ pipeline {
         stage('Clean Workspace') {
             steps {
                 deleteDir()
-                 sh '''
-                    sudo apt update
-                    sudo apt install -y python3-pip python3-venv nodejs npm pm2
-                    sudo npm install -g pm2
-                '''
             }
         }
 

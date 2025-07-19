@@ -11,11 +11,10 @@ flask-express-demo/
 ├── flask-app/
 │   ├── app.py
 │   ├── requirements.txt
-│   └── Jenkinsfile
 └── express-app/
     ├── app.js
     ├── package.json
-    └── Jenkinsfile
+└── Jenkinsfile   
 ```
 
 ## 🚀 Setup on EC2 Instance
