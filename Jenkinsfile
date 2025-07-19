@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        BASE_DIR = '/home/ubuntu/jenkins-workspace'
+        BASE_DIR = '/home/ubuntu/jenkinsfile-demo'
         FLASK_APP_DIR = "${BASE_DIR}/flask-app"
         EXPRESS_APP_DIR = "${BASE_DIR}/express-app"
         FLASK_VENV_PATH = "${FLASK_APP_DIR}/venv"
@@ -13,15 +13,15 @@ pipeline {
     }
 
     stages {
-        stage('Clean Custom Workspace') {
-            steps {
-                // sh 'sudo rm -rf /home/ubuntu/jenkins-workspace/*'
-            }
-        }
+        // stage('Clean Custom Workspace') {
+        //     steps {
+        //         // sh 'sudo rm -rf /home/ubuntu/*'
+        //     }
+        // }
 
         stage('Clone Repository to Custom Path') {
             steps {
-                dir('/home/ubuntu/jenkins-workspace') {
+                dir('/home/ubuntu') {
                     git branch: 'main', url: 'https://github.com/dkbera01/jenkinsfile-demo.git'
                 }
             }
