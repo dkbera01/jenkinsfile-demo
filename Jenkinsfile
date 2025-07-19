@@ -53,16 +53,16 @@ pipeline {
         }
 
         stage('Deploy Express App') {
-            steps {
+             steps {
                 dir("${EXPRESS_APP_DIR}") {
                     timeout(time: 1, unit: 'MINUTES') {
                         sh 'npm install --no-optional'
                     }
+                    sh '''
+                        pm2 delete express-app || true
+                        pm2 start app.js --name express-app
+                    '''
                 }
-                sh '''
-                    pm2 delete express-app || true
-                    pm2 start app.js --name express-app
-                '''
             }
         }
 
