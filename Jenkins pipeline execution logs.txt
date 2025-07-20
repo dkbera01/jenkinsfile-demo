@@ -1,0 +1,246 @@
+Started by GitHub push by dkbera01
+Obtained Jenkinsfile from git https://github.com/dkbera01/jenkinsfile-demo.git
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/lib/jenkins/workspace/jenkins-demo@2
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+No credentials specified
+Cloning the remote Git repository
+Cloning repository https://github.com/dkbera01/jenkinsfile-demo.git
+ > git init /var/lib/jenkins/workspace/jenkins-demo@2 # timeout=10
+Fetching upstream changes from https://github.com/dkbera01/jenkinsfile-demo.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.43.0'
+ > git fetch --tags --force --progress -- https://github.com/dkbera01/jenkinsfile-demo.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url https://github.com/dkbera01/jenkinsfile-demo.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+Avoid second fetch
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision a5a3cc44988f4789bd7cf9ec5e678b71d72af1e8 (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f a5a3cc44988f4789bd7cf9ec5e678b71d72af1e8 # timeout=10
+Commit message: "fix"
+ > git rev-list --no-walk 1846dcc026936246cc6cb37f44d75bf4a6cd67a8 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Clean Workspace)
+[Pipeline] deleteDir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Clone Repository)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+No credentials specified
+Wiping out workspace first.
+Cloning the remote Git repository
+Cloning repository https://github.com/dkbera01/jenkinsfile-demo.git
+ > git init /var/lib/jenkins/workspace/jenkins-demo@2 # timeout=10
+Fetching upstream changes from https://github.com/dkbera01/jenkinsfile-demo.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.43.0'
+ > git fetch --tags --force --progress -- https://github.com/dkbera01/jenkinsfile-demo.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url https://github.com/dkbera01/jenkinsfile-demo.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+Avoid second fetch
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision a5a3cc44988f4789bd7cf9ec5e678b71d72af1e8 (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f a5a3cc44988f4789bd7cf9ec5e678b71d72af1e8 # timeout=10
+Commit message: "fix"
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Install Flask Dependencies)
+[Pipeline] dir
+Running in /var/lib/jenkins/workspace/jenkins-demo@2/flask-app
+[Pipeline] {
+[Pipeline] sh
++ python3 -m venv venv
++ . venv/bin/activate
++ deactivate nondestructive
++ [ -n  ]
++ [ -n  ]
++ hash -r
++ [ -n  ]
++ unset VIRTUAL_ENV
++ unset VIRTUAL_ENV_PROMPT
++ [ ! nondestructive = nondestructive ]
++ [  = cygwin ]
++ [  = msys ]
++ export VIRTUAL_ENV=/var/lib/jenkins/workspace/jenkins-demo@2/flask-app/venv
++ _OLD_VIRTUAL_PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/snap/bin
++ PATH=/var/lib/jenkins/workspace/jenkins-demo@2/flask-app/venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/snap/bin
++ export PATH
++ [ -n  ]
++ [ -z  ]
++ _OLD_VIRTUAL_PS1=$ 
++ PS1=(venv) $ 
++ export PS1
++ VIRTUAL_ENV_PROMPT=(venv) 
++ export VIRTUAL_ENV_PROMPT
++ hash -r
++ pip install --upgrade pip
+Requirement already satisfied: pip in ./venv/lib/python3.12/site-packages (24.0)
+Collecting pip
+  Using cached pip-25.1.1-py3-none-any.whl.metadata (3.6 kB)
+Using cached pip-25.1.1-py3-none-any.whl (1.8 MB)
+Installing collected packages: pip
+  Attempting uninstall: pip
+    Found existing installation: pip 24.0
+    Uninstalling pip-24.0:
+      Successfully uninstalled pip-24.0
+Successfully installed pip-25.1.1
++ pip install -r requirements.txt
+Collecting flask (from -r requirements.txt (line 1))
+  Using cached flask-3.1.1-py3-none-any.whl.metadata (3.0 kB)
+Collecting blinker>=1.9.0 (from flask->-r requirements.txt (line 1))
+  Using cached blinker-1.9.0-py3-none-any.whl.metadata (1.6 kB)
+Collecting click>=8.1.3 (from flask->-r requirements.txt (line 1))
+  Using cached click-8.2.1-py3-none-any.whl.metadata (2.5 kB)
+Collecting itsdangerous>=2.2.0 (from flask->-r requirements.txt (line 1))
+  Using cached itsdangerous-2.2.0-py3-none-any.whl.metadata (1.9 kB)
+Collecting jinja2>=3.1.2 (from flask->-r requirements.txt (line 1))
+  Using cached jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+Collecting markupsafe>=2.1.1 (from flask->-r requirements.txt (line 1))
+  Using cached MarkupSafe-3.0.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.0 kB)
+Collecting werkzeug>=3.1.0 (from flask->-r requirements.txt (line 1))
+  Using cached werkzeug-3.1.3-py3-none-any.whl.metadata (3.7 kB)
+Using cached flask-3.1.1-py3-none-any.whl (103 kB)
+Using cached blinker-1.9.0-py3-none-any.whl (8.5 kB)
+Using cached click-8.2.1-py3-none-any.whl (102 kB)
+Using cached itsdangerous-2.2.0-py3-none-any.whl (16 kB)
+Using cached jinja2-3.1.6-py3-none-any.whl (134 kB)
+Using cached MarkupSafe-3.0.2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (23 kB)
+Using cached werkzeug-3.1.3-py3-none-any.whl (224 kB)
+Installing collected packages: markupsafe, itsdangerous, click, blinker, werkzeug, jinja2, flask
+
+Successfully installed blinker-1.9.0 click-8.2.1 flask-3.1.1 itsdangerous-2.2.0 jinja2-3.1.6 markupsafe-3.0.2 werkzeug-3.1.3
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy Flask App)
+[Pipeline] dir
+Running in /var/lib/jenkins/workspace/jenkins-demo@2/flask-app
+[Pipeline] {
+[Pipeline] sh
++ sudo -u ubuntu /usr/local/bin/pm2 delete flask-app
+[PM2] Spawning PM2 daemon with pm2_home=/home/ubuntu/.pm2
+[PM2] PM2 Successfully daemonized
+[PM2][ERROR] Process or Namespace flask-app not found
++ true
++ sudo -u ubuntu /usr/local/bin/pm2 start app.py --interpreter ./venv/bin/python --name flask-app --update-env
+[PM2] Starting /var/lib/jenkins/workspace/jenkins-demo@2/flask-app/app.py in fork_mode (1 instance)
+[PM2] Done.
+┌────┬──────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name         │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼──────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 0  │ flask-app    │ default     │ N/A     │ fork    │ 1364     │ 0s     │ 0    │ online    │ 0%       │ 9.4mb    │ ubuntu   │ disabled │
+└────┴──────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Install Express Dependencies)
+[Pipeline] dir
+Running in /var/lib/jenkins/workspace/jenkins-demo@2/express-app
+[Pipeline] {
+[Pipeline] sh
++ npm install --no-optional --silent
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy Express App)
+[Pipeline] dir
+Running in /var/lib/jenkins/workspace/jenkins-demo@2/express-app
+[Pipeline] {
+[Pipeline] timeout
+Timeout set to expire in 1 min 0 sec
+[Pipeline] {
+[Pipeline] sh
++ npm install --no-optional
+npm WARN config optional Use `--omit=optional` to exclude optional dependencies, or
+npm WARN config `--include=optional` to include them.
+npm WARN config 
+npm WARN config     Default value does install optional deps unless otherwise omitted.
+
+up to date, audited 70 packages in 627ms
+
+14 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+[Pipeline] }
+[Pipeline] // timeout
+[Pipeline] sh
++ sudo -u ubuntu /usr/local/bin/pm2 delete express-app
+[PM2][ERROR] Process or Namespace express-app not found
++ true
++ sudo -u ubuntu /usr/local/bin/pm2 start app.js --name express-app --update-env
+[PM2] Starting /var/lib/jenkins/workspace/jenkins-demo@2/express-app/app.js in fork_mode (1 instance)
+[PM2] Done.
+┌────┬────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name           │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 1  │ express-app    │ default     │ 1.0.0   │ fork    │ 1457     │ 0s     │ 0    │ online    │ 0%       │ 13.4mb   │ ubuntu   │ disabled │
+│ 0  │ flask-app      │ default     │ N/A     │ fork    │ 1364     │ 7s     │ 0    │ online    │ 0%       │ 29.2mb   │ ubuntu   │ disabled │
+└────┴────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Confirm PM2 Process List)
+[Pipeline] sh
++ pm2 restart all --update-env
+[32m[PM2] [39mSpawning PM2 daemon with pm2_home=/var/lib/jenkins/.pm2
+[32m[PM2] [39mPM2 Successfully daemonized
+[33m[PM2][WARN] [39mNo process found
++ true
+[Pipeline] sh
++ sudo -u ubuntu pm2 list
+┌────┬────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name           │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 1  │ express-app    │ default     │ 1.0.0   │ fork    │ 1457     │ 3s     │ 0    │ online    │ 0%       │ 57.7mb   │ ubuntu   │ disabled │
+│ 0  │ flask-app      │ default     │ N/A     │ fork    │ 1364     │ 10s    │ 0    │ online    │ 0%       │ 24.2mb   │ ubuntu   │ disabled │
+└────┴────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] echo
+Saving PM2 Process List
+[Pipeline] sh
++ pm2 save
+[32m[PM2] [39mSaving current process list...
+[33m[PM2][WARN] [39mPM2 is not managing any process, skipping save...
+[33m[PM2][WARN] [39mTo force saving use: pm2 save --force
+[Pipeline] echo
+✅ Build and deployment succeeded!
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
